@@ -74,6 +74,10 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Runs after guess button is pressed. Checks if guessed letter was correct or wrong.
+     * @param view
+     */
     public void guessBtnPressed(View view){
         char guess = guessField.getText().charAt(0);
         boolean correct = false;
@@ -97,8 +101,34 @@ public class GameActivity extends AppCompatActivity {
         word.setText(mysteryWord, 0, mysteryWord.length);
         guessField.setText("");
         dismissKeyboard(this);
+        if (isGameWon()){
+
+        }
+        else if (guesses == 0){
+
+        }
     }
 
+    /**
+     * checks if all the letters have been guessed
+     * @return true is all letters are guessed
+     */
+    public boolean isGameWon(){
+        int numLetters = mysteryWord.length;
+        for (int i = 0; i < mysteryWord.length; i++){
+            if (mysteryWord[i] != '*')
+                numLetters--;
+        }
+        if (numLetters == 0)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Hides the keyboard after the guess button is pressed
+     * @param activity
+     */
     public void dismissKeyboard(Activity activity){
         InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != activity.getCurrentFocus())
