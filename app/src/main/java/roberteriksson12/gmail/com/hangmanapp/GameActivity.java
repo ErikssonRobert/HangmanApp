@@ -87,7 +87,6 @@ public class GameActivity extends AppCompatActivity {
                 correct = true;
             }
         }
-
         if (correct){
             Toast toast = Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT);
             toast.show();
@@ -96,16 +95,59 @@ public class GameActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT);
             toast.show();
             guesses--;
+            changeImage();
         }
+        afterEveryGuess();
+        if (isGameWon()){
+
+        }
+        if (guesses == 0){
+
+        }
+    }
+
+    private void afterEveryGuess(){
         triesLeft.setText(getString(R.string.triesleft) + " " + guesses);
         word.setText(mysteryWord, 0, mysteryWord.length);
         guessField.setText("");
         dismissKeyboard(this);
-        if (isGameWon()){
+    }
 
-        }
-        else if (guesses == 0){
-
+    /**
+     * Changes the image of the hanged man
+     */
+    public void changeImage(){
+        switch (guesses){
+            case 9:
+                hangmanImg.setImageResource(R.drawable.hang9);
+                break;
+            case 8:
+                hangmanImg.setImageResource(R.drawable.hang8);
+                break;
+            case 7:
+                hangmanImg.setImageResource(R.drawable.hang7);
+                break;
+            case 6:
+                hangmanImg.setImageResource(R.drawable.hang6);
+                break;
+            case 5:
+                hangmanImg.setImageResource(R.drawable.hang5);
+                break;
+            case 4:
+                hangmanImg.setImageResource(R.drawable.hang4);
+                break;
+            case 3:
+                hangmanImg.setImageResource(R.drawable.hang3);
+                break;
+            case 2:
+                hangmanImg.setImageResource(R.drawable.hang2);
+                break;
+            case 1:
+                hangmanImg.setImageResource(R.drawable.hang1);
+                break;
+            case 0:
+                hangmanImg.setImageResource(R.drawable.hang0);
+                break;
         }
     }
 

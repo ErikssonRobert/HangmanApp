@@ -16,13 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".InfoActivity"/>
+        <activity android:name=".InfoActivity" />
         <activity
             android:name=".GameActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AboutActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
