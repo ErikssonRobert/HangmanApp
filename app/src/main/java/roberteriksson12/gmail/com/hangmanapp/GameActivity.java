@@ -37,6 +37,11 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         setTitle("Hangman game");
+        initialize();
+        word.setText(mysteryWord, 0, mysteryWord.length);
+    }
+
+    private void initialize(){
         guessField = (EditText)findViewById(R.id.guessField);
         hangmanImg = (ImageView)findViewById(R.id.hangmanImg);
         hangmanImg.setImageResource(R.drawable.hang10);
@@ -53,7 +58,6 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < mysteryWord.length; i++){
             mysteryWord[i] = '*';
         }
-        word.setText(mysteryWord, 0, mysteryWord.length);
     }
 
     private void createWords() {
@@ -93,39 +97,46 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void guessBtnPressed(View view){
-        String guess2 = guessField.getText().toString();
-        char guess = guessField.getText().charAt(0);
+        String guess2;
+        char guess;
         boolean correct = false;
-        if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess2)){
-            guess = Character.toLowerCase(guess);
-            for (int i = 0; i < mysteryWord.length; i++){
-                if (guess == randWord.charAt(i)){
-                    mysteryWord[i] = guess;
-                    correct = true;
+        if (!guessField.getText().toString().equals("")){
+            guess2 = guessField.getText().toString();
+            guess = guessField.getText().charAt(0);
+            if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess2)){
+                guess = Character.toLowerCase(guess);
+                for (int i = 0; i < mysteryWord.length; i++){
+                    if (guess == randWord.charAt(i)){
+                        mysteryWord[i] = guess;
+                        correct = true;
+                    }
+                }
+                if (correct){
+                    toastHandler(1);
+                }
+                else{
+                    toastHandler(2);
+                    if (pastGuesses.length() > 0)
+                        pastGuesses += ", " + guess;
+                    else
+                        pastGuesses += guess;
+                    pastGuessField.setText(pastGuesses);
+                    guesses--;
+                    changeImage();
                 }
             }
-            if (correct){
-                toastHandler(1);
-            }
             else{
-                toastHandler(2);
-                if (pastGuesses.length() > 0)
-                    pastGuesses += ", " + guess;
-                else
-                    pastGuesses += guess;
-                pastGuessField.setText(pastGuesses);
-                guesses--;
-                changeImage();
+                if (!isLetter(guess))
+                    toastHandler(3);
+                else if (isGuessed(guess))
+                    toastHandler(4);
+                else if (!isOneLetter(guess2))
+                    toastHandler(5);
             }
         }
-        else{
-            if (!isLetter(guess))
-                toastHandler(3);
-            else if (isGuessed(guess))
-                toastHandler(4);
-            else if (!isOneLetter(guess2))
-                toastHandler(5);
-        }
+        else
+            toastHandler(6);
+
         afterEveryGuess();
         showResult();
     }

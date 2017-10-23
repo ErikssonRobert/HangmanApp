@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Hangman</string>
+    <string name="mainMenu">Main menu</string>
+    <string name="headLine">Welcome to Hangman!</string>
     <string name="about_text">This is the famous hangman game that kids and adults both have enjoyed since the dawn of time.
     You play it by guessing one letter at a time to try and find out what the mystery word is before the poor man is hanged.</string>
     <string name="creator">Created by: Robert Eriksson</string>

@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="awesome_theme" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
 </resources>
