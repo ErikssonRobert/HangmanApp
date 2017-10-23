@@ -13,6 +13,8 @@
     <string name="correct">Correct!</string>
     <string name="wrong">Wrong!</string>
     <string name="lettersOnly">Letters only!</string>
+    <string name="guessedBefore">You have already guessed that letter!</string>
+    <string name="oneLetterOnly">You can only type one letter!</string>
 
     <string name="word1">variable</string>
     <string name="word2">method</string>

@@ -97,9 +97,10 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void guessBtnPressed(View view){
+        String guess2 = guessField.getText().toString();
         char guess = guessField.getText().charAt(0);
         boolean correct = false;
-        if (isLetter(guess)){
+        if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess2)){
             guess = Character.toLowerCase(guess);
             for (int i = 0; i < mysteryWord.length; i++){
                 if (guess == randWord.charAt(i)){
@@ -122,10 +123,30 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         else{
-            toastHandler(3);
+            if (!isLetter(guess))
+                toastHandler(3);
+            else if (isGuessed(guess))
+                toastHandler(4);
+            else if (!isOneLetter(guess2))
+                toastHandler(5);
         }
         afterEveryGuess();
         showResult();
+    }
+
+    private boolean isOneLetter(String guess2) {
+        if (guess2.length() > 1)
+            return false;
+        else
+            return true;
+    }
+
+    private boolean isGuessed(char c) {
+        for (int i = 0; i < pastGuesses.length(); i++){
+            if (pastGuesses.charAt(i) == c)
+                return true;
+        }
+        return false;
     }
 
     private boolean isLetter(char c){
@@ -220,6 +241,14 @@ public class GameActivity extends AppCompatActivity {
             case 3:
                 Toast toast3 = Toast.makeText(this, getString(R.string.lettersOnly), Toast.LENGTH_SHORT);
                 toast3.show();
+                break;
+            case 4:
+                Toast toast4 = Toast.makeText(this, getString(R.string.guessedBefore), Toast.LENGTH_SHORT);
+                toast4.show();
+                break;
+            case 5:
+                Toast toast5 = Toast.makeText(this, getString(R.string.oneLetterOnly), Toast.LENGTH_SHORT);
+                toast5.show();
                 break;
         }
     }
