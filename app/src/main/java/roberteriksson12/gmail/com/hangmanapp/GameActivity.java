@@ -23,7 +23,6 @@ public class GameActivity extends AppCompatActivity {
     private ImageView hangmanImg;
     private String[] words;
     private char[] mysteryWord;
-    private Random random;
     private TextView word;
     private String randWord;
     private TextView triesLeft;
@@ -44,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
         pastGuessField = (TextView)findViewById(R.id.pastGuesses);
         guesses = 10;
         pastGuesses = "";
-        random = new Random();
+        Random random = new Random();
         createWords();  //puts a number of strings into the string array words
         randWord = words[random.nextInt(7)];
         mysteryWord = new char[randWord.length()];
@@ -55,8 +54,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void createWords() {
-        Resources res = getResources();
-        words = res.getStringArray(R.array.wordList);
+        words = getResources().getStringArray(R.array.wordList);
     }
 
     /**
