@@ -6,10 +6,10 @@
         android:id="@+id/playTlbBtn"
         android:icon="@android:drawable/ic_media_play"
         android:title="Play"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/infoTlbBtn"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="Info"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

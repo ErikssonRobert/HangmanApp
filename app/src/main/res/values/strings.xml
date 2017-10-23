@@ -3,5 +3,22 @@
     <string name="about_text">This is the famous hangman game that kids and adults both have enjoyed since the dawn of time.
     You play it by guessing one letter at a time to try and find out what the mystery word is before the poor man is hanged.</string>
     <string name="creator">Created by: Robert Eriksson</string>
-    <string name="triesleft">Tries left:</string>
+    <string name="triesleft">Tries left: </string>
+    <string name="returnToMenu">Return to main menu</string>
+    <string name="guessBtn">guess</string>
+    <string name="tries">Tries left: </string>
+    <string name="playBtn">play</string>
+    <string name="aboutBtn">about</string>
+    <string name="reveal">The word was: </string>
+    <string name="correct">Correct!</string>
+    <string name="wrong">Wrong!</string>
+    <string name="lettersOnly">Letters only!</string>
+
+    <string name="word1">variable</string>
+    <string name="word2">method</string>
+    <string name="word3">constructor</string>
+    <string name="word4">string</string>
+    <string name="word5">integer</string>
+    <string name="word6">class</string>
+    <string name="word7">abstract</string>
 </resources>

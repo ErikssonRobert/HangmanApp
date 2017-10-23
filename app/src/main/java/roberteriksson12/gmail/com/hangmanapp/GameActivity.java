@@ -27,6 +27,8 @@ public class GameActivity extends AppCompatActivity {
     private String randWord;
     private TextView triesLeft;
     private int guesses;
+    private String pastGuesses;
+    private TextView pastGuessField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +40,30 @@ public class GameActivity extends AppCompatActivity {
         hangmanImg.setImageResource(R.drawable.hang10);
         word = (TextView)findViewById(R.id.hiddenWord);
         triesLeft = (TextView)findViewById(R.id.triesLeft);
+        pastGuessField = (TextView)findViewById(R.id.pastGuesses);
         guesses = 10;
+        pastGuesses = "";
         random = new Random();
-        words = new String[5];
-        words[0] = "Variable";
-        words[1] = "Method";
-        words[2] = "Constructor";
-        words[3] = "String";
-        words[4] = "Integer";
-        randWord = words[random.nextInt(5)];
+        createWords();  //puts a number of strings into the string array words
+        randWord = words[random.nextInt(7)];
         mysteryWord = new char[randWord.length()];
         //for (int i = 0; i < randWord.length(); i++)
             //tempString += randWord.charAt(i);
         for (int i = 0; i < mysteryWord.length; i++){
             mysteryWord[i] = '*';
-            word.setText(mysteryWord, 0, mysteryWord.length);
         }
+        word.setText(mysteryWord, 0, mysteryWord.length);
+    }
+
+    private void createWords() {
+        words = new String[7];
+        words[0] = getString(R.string.word1);
+        words[1] = getString(R.string.word2);
+        words[2] = getString(R.string.word3);
+        words[3] = getString(R.string.word4);
+        words[4] = getString(R.string.word5);
+        words[5] = getString(R.string.word6);
+        words[6] = getString(R.string.word7);
     }
 
     @Override
@@ -81,33 +91,44 @@ public class GameActivity extends AppCompatActivity {
     public void guessBtnPressed(View view){
         char guess = guessField.getText().charAt(0);
         boolean correct = false;
-        for (int i = 0; i < mysteryWord.length; i++){
-            if (guess == randWord.charAt(i)){
-                mysteryWord[i] = guess;
-                correct = true;
+        if (isLetter(guess)){
+            guess = Character.toLowerCase(guess);
+            for (int i = 0; i < mysteryWord.length; i++){
+                if (guess == randWord.charAt(i)){
+                    mysteryWord[i] = guess;
+                    correct = true;
+                }
+            }
+            if (correct){
+                toastHandler(1);
+            }
+            else{
+                toastHandler(2);
+                if (pastGuesses.length() > 0)
+                    pastGuesses += ", " + guess;
+                else
+                    pastGuesses += guess;
+                pastGuessField.setText(pastGuesses);
+                guesses--;
+                changeImage();
             }
         }
-        if (correct){
-            Toast toast = Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
         else{
-            Toast toast = Toast.makeText(this, "Wrong!", Toast.LENGTH_SHORT);
-            toast.show();
-            guesses--;
-            changeImage();
+            toastHandler(3);
         }
         afterEveryGuess();
-        if (isGameWon()){
+        showResult();
+    }
 
-        }
-        if (guesses == 0){
+    private boolean isLetter(char c){
+        if (Character.isDigit(c))
+            return false;
 
-        }
+        return true;
     }
 
     private void afterEveryGuess(){
-        triesLeft.setText(getString(R.string.triesleft) + " " + guesses);
+        triesLeft.setText(getString(R.string.tries) + " " + guesses);
         word.setText(mysteryWord, 0, mysteryWord.length);
         guessField.setText("");
         dismissKeyboard(this);
@@ -145,9 +166,20 @@ public class GameActivity extends AppCompatActivity {
             case 1:
                 hangmanImg.setImageResource(R.drawable.hang1);
                 break;
-            case 0:
-                hangmanImg.setImageResource(R.drawable.hang0);
-                break;
+        }
+    }
+
+    private void showResult(){
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("mystery", randWord);
+        intent.putExtra("tries", guesses);
+        if (isGameWon()){
+            intent.putExtra("result", "You won!");
+            startActivity(intent);
+        }
+        else if (guesses == 0){
+            intent.putExtra("result", "You lost");
+            startActivity(intent);
         }
     }
 
@@ -165,6 +197,23 @@ public class GameActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    private void toastHandler(int i){
+        switch (i){
+            case 1:
+                Toast toast1 = Toast.makeText(this, getString(R.string.correct), Toast.LENGTH_SHORT);
+                toast1.show();
+                break;
+            case 2:
+                Toast toast2 = Toast.makeText(this, getString(R.string.wrong), Toast.LENGTH_SHORT);
+                toast2.show();
+                break;
+            case 3:
+                Toast toast3 = Toast.makeText(this, getString(R.string.lettersOnly), Toast.LENGTH_SHORT);
+                toast3.show();
+                break;
+        }
     }
 
     /**

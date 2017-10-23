@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id){
-            case R.id.infoTlbBtn:
-                Intent info = new Intent(this, InfoActivity.class);
-                startActivity(info);
-                break;
             case R.id.playTlbBtn:
                 Intent game = new Intent(this, GameActivity.class);
                 startActivity(game);
+                break;
+            case R.id.infoTlbBtn:
+                Intent info = new Intent(this, InfoActivity.class);
+                startActivity(info);
                 break;
         }
         return super.onOptionsItemSelected(item);
