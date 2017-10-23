@@ -5,11 +5,11 @@
     <item
         android:id="@+id/playTlbBtn"
         android:icon="@android:drawable/ic_media_play"
-        android:title="Play"
+        android:title="@string/playBtn"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/infoTlbBtn"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="Info"
+        android:title="@string/aboutBtn"
         app:showAsAction="ifRoom" />
 </menu>

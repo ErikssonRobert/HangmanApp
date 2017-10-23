@@ -44,7 +44,6 @@ public class GameActivity extends AppCompatActivity {
     private void initialize(){
         guessField = (EditText)findViewById(R.id.guessField);
         hangmanImg = (ImageView)findViewById(R.id.hangmanImg);
-        hangmanImg.setImageResource(R.drawable.hang10);
         images = getResources().obtainTypedArray(R.array.images);
         word = (TextView)findViewById(R.id.hiddenWord);
         triesLeft = (TextView)findViewById(R.id.triesLeft);
@@ -58,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < mysteryWord.length; i++){
             mysteryWord[i] = '*';
         }
+        changeImage();
     }
 
     private void createWords() {
@@ -96,49 +96,37 @@ public class GameActivity extends AppCompatActivity {
      * Runs after guess button is pressed. Checks if guessed letter was correct or wrong.
      * @param view
      */
-    public void guessBtnPressed(View view){
-        String guess2;
-        char guess;
+    public void guessBtnPressed(View view) {
         boolean correct = false;
-        if (!guessField.getText().toString().equals("")){
-            guess2 = guessField.getText().toString();
-            guess = guessField.getText().charAt(0);
-            if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess2)){
-                guess = Character.toLowerCase(guess);
-                for (int i = 0; i < mysteryWord.length; i++){
-                    if (guess == randWord.charAt(i)){
-                        mysteryWord[i] = guess;
-                        correct = true;
-                    }
-                }
-                if (correct){
-                    toastHandler(1);
-                }
-                else{
-                    toastHandler(2);
-                    if (pastGuesses.length() > 0)
-                        pastGuesses += ", " + guess;
-                    else
-                        pastGuesses += guess;
-                    pastGuessField.setText(pastGuesses);
-                    guesses--;
-                    changeImage();
+        String guess = guessField.getText().toString().toLowerCase();
+        if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess) && !guess.equals("")) {
+            for (int i = 0; i < mysteryWord.length; i++) {
+                if (guess.charAt(0) == randWord.charAt(i)) {
+                    mysteryWord[i] = guess.charAt(0);
+                    correct = true;
                 }
             }
-            else{
-                if (!isLetter(guess))
-                    toastHandler(3);
-                else if (isGuessed(guess))
-                    toastHandler(4);
-                else if (!isOneLetter(guess2))
-                    toastHandler(5);
+            if (correct) {
+                toastHandler(1);
+            } else {
+                toastHandler(2);
+                handlePastGuesses(guess);
+                guesses--;
+                changeImage();
             }
+        } else {
+            chooseToast(guess);
         }
-        else
-            toastHandler(6);
-
         afterEveryGuess();
         showResult();
+    }
+
+    private void handlePastGuesses(String s) {
+        if (pastGuesses.length() > 0)
+            pastGuesses += ", " + s;
+        else
+            pastGuesses += s;
+        pastGuessField.setText(pastGuesses);
     }
 
     private boolean isOneLetter(String guess2) {
@@ -148,9 +136,9 @@ public class GameActivity extends AppCompatActivity {
             return true;
     }
 
-    private boolean isGuessed(char c) {
+    private boolean isGuessed(String s) {
         for (int i = 0; i < pastGuesses.length(); i++){
-            if (pastGuesses.charAt(i) == c)
+            if (pastGuesses.charAt(i) == s.charAt(0))
                 return true;
         }
         return false;
@@ -158,16 +146,28 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * checks if input is a letter or not
-     * @param c
+     * @param s
      * @return true if input is a letter
      */
-    public boolean isLetter(char c){
+    public boolean isLetter(String s){
+        char c = s.charAt(0);
         if (Character.isDigit(c))
             return false;
         else if (Character.isLetter(c))
             return true;
         else
             return false;
+    }
+
+    private void chooseToast(String s){
+        if (!isLetter(s))
+            toastHandler(3);
+        else if (isGuessed(s))
+            toastHandler(4);
+        else if (!isOneLetter(s))
+            toastHandler(5);
+        else if (s.equals(""))
+            toastHandler(6);
     }
 
     private void afterEveryGuess(){
