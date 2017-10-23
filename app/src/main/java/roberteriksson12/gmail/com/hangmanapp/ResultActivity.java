@@ -38,6 +38,11 @@ public class ResultActivity extends AppCompatActivity {
         TextView triesLeft = (TextView)findViewById(R.id.triesLeft);
     }
 
+    /**
+     * Inflates toolbar to fit icons
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -45,6 +50,11 @@ public class ResultActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Checks which toolbar icon was pressed
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

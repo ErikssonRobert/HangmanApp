@@ -47,8 +47,6 @@ public class GameActivity extends AppCompatActivity {
         createWords();  //puts a number of strings into the string array words
         randWord = words[random.nextInt(7)];
         mysteryWord = new char[randWord.length()];
-        //for (int i = 0; i < randWord.length(); i++)
-            //tempString += randWord.charAt(i);
         for (int i = 0; i < mysteryWord.length; i++){
             mysteryWord[i] = '*';
         }
@@ -66,6 +64,11 @@ public class GameActivity extends AppCompatActivity {
         words[6] = getString(R.string.word7);
     }
 
+    /**
+     * Inflates toolbar to fit icons
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -73,6 +76,11 @@ public class GameActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Checks which toolbar icon was pressed
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
