@@ -40,23 +40,29 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.playTlbBtn:
-                Intent game = new Intent(this, GameActivity.class);
-                startActivity(game);
+                openGameActivity();
                 break;
             case R.id.infoTlbBtn:
-                Intent info = new Intent(this, InfoActivity.class);
-                startActivity(info);
+                openAboutActivity();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void playBtnPressed(View view){
+        openGameActivity();
+    }
+
+    public void aboutBtnPressed(View view){
+        openAboutActivity();
+    }
+
+    private void openGameActivity(){
         Intent game = new Intent(this, GameActivity.class);
         startActivity(game);
     }
 
-    public void aboutBtnPressed(View view){
+    private void openAboutActivity(){
         Intent about = new Intent(this, AboutActivity.class);
         startActivity(about);
     }
