@@ -3,6 +3,7 @@ package roberteriksson12.gmail.com.hangmanapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,14 +55,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void createWords() {
-        words = new String[7];
-        words[0] = getString(R.string.word1);
-        words[1] = getString(R.string.word2);
-        words[2] = getString(R.string.word3);
-        words[3] = getString(R.string.word4);
-        words[4] = getString(R.string.word5);
-        words[5] = getString(R.string.word6);
-        words[6] = getString(R.string.word7);
+        Resources res = getResources();
+        words = res.getStringArray(R.array.wordList);
     }
 
     /**
@@ -149,11 +144,18 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean isLetter(char c){
+    /**
+     * checks if input is a letter or not
+     * @param c
+     * @return true if input is a letter
+     */
+    public boolean isLetter(char c){
         if (Character.isDigit(c))
             return false;
-
-        return true;
+        else if (Character.isLetter(c))
+            return true;
+        else
+            return false;
     }
 
     private void afterEveryGuess(){
@@ -205,10 +207,12 @@ public class GameActivity extends AppCompatActivity {
         if (isGameWon()){
             intent.putExtra("result", "You won!");
             startActivity(intent);
+            finish();
         }
         else if (guesses == 0){
             intent.putExtra("result", "You lost");
             startActivity(intent);
+            finish();
         }
     }
 

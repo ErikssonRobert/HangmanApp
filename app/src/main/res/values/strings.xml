@@ -15,12 +15,4 @@
     <string name="lettersOnly">Letters only!</string>
     <string name="guessedBefore">You have already guessed that letter!</string>
     <string name="oneLetterOnly">You can only type one letter!</string>
-
-    <string name="word1">variable</string>
-    <string name="word2">method</string>
-    <string name="word3">constructor</string>
-    <string name="word4">string</string>
-    <string name="word5">integer</string>
-    <string name="word6">class</string>
-    <string name="word7">abstract</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wordList">
+        <item>variable</item>
+        <item>method</item>
+        <item>constructor</item>
+        <item>string</item>
+        <item>integer</item>
+        <item>class</item>
+        <item>abstract</item>
+    </string-array>
+</resources>
