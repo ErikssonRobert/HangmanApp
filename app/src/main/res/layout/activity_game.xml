@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="roberteriksson12.gmail.com.hangmanapp.GameActivity">
 
     <ImageView
@@ -55,7 +56,7 @@
         android:textAlignment="center"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pastGuesses"
         app:layout_constraintRight_toLeftOf="@+id/guessBtn" />
 
     <Button
@@ -66,5 +67,5 @@
         android:onClick="guessBtnPressed"
         app:layout_constraintLeft_toRightOf="@+id/guessField"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/guessField"/>
 </android.support.constraint.ConstraintLayout>
