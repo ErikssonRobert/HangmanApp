@@ -99,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
     public void guessBtnPressed(View view) {
         boolean correct = false;
         String guess = guessField.getText().toString().toLowerCase();
-        if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess) && !guess.equals("")) {
+        if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess)) {
             for (int i = 0; i < mysteryWord.length; i++) {
                 if (guess.charAt(0) == randWord.charAt(i)) {
                     mysteryWord[i] = guess.charAt(0);
@@ -150,13 +150,17 @@ public class GameActivity extends AppCompatActivity {
      * @return true if input is a letter
      */
     public boolean isLetter(String s){
-        char c = s.charAt(0);
-        if (Character.isDigit(c))
+        if (s.equals(""))
             return false;
-        else if (Character.isLetter(c))
-            return true;
-        else
-            return false;
+        else{
+            char c = s.charAt(0);
+            if (Character.isDigit(c))
+                return false;
+            else if (Character.isLetter(c))
+                return true;
+            else
+                return false;
+        }
     }
 
     private void chooseToast(String s){
@@ -237,6 +241,10 @@ public class GameActivity extends AppCompatActivity {
             case 5:
                 Toast toast5 = Toast.makeText(this, getString(R.string.oneLetterOnly), Toast.LENGTH_SHORT);
                 toast5.show();
+                break;
+            case 6:
+                Toast toast6 = Toast.makeText(this, getString(R.string.oneLetterOnly), Toast.LENGTH_SHORT);
+                toast6.show();
                 break;
         }
     }
