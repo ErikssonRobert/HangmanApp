@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private int guesses;
     private String pastGuesses;
     private TextView pastGuessField;
+    private TypedArray images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class GameActivity extends AppCompatActivity {
         guessField = (EditText)findViewById(R.id.guessField);
         hangmanImg = (ImageView)findViewById(R.id.hangmanImg);
         hangmanImg.setImageResource(R.drawable.hang10);
+        images = getResources().obtainTypedArray(R.array.images);
         word = (TextView)findViewById(R.id.hiddenWord);
         triesLeft = (TextView)findViewById(R.id.triesLeft);
         pastGuessField = (TextView)findViewById(R.id.pastGuesses);
@@ -167,35 +170,7 @@ public class GameActivity extends AppCompatActivity {
      * Changes the image of the hanged man
      */
     public void changeImage(){
-        switch (guesses){
-            case 9:
-                hangmanImg.setImageResource(R.drawable.hang9);
-                break;
-            case 8:
-                hangmanImg.setImageResource(R.drawable.hang8);
-                break;
-            case 7:
-                hangmanImg.setImageResource(R.drawable.hang7);
-                break;
-            case 6:
-                hangmanImg.setImageResource(R.drawable.hang6);
-                break;
-            case 5:
-                hangmanImg.setImageResource(R.drawable.hang5);
-                break;
-            case 4:
-                hangmanImg.setImageResource(R.drawable.hang4);
-                break;
-            case 3:
-                hangmanImg.setImageResource(R.drawable.hang3);
-                break;
-            case 2:
-                hangmanImg.setImageResource(R.drawable.hang2);
-                break;
-            case 1:
-                hangmanImg.setImageResource(R.drawable.hang1);
-                break;
-        }
+        hangmanImg.setImageResource(images.getResourceId(guesses, -1));
     }
 
     private void showResult(){
