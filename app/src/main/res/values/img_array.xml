@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer-array name="images">
+    <array name="images">
         <item>@drawable/hang0</item>
         <item>@drawable/hang1</item>
         <item>@drawable/hang2</item>
@@ -12,5 +12,5 @@
         <item>@drawable/hang8</item>
         <item>@drawable/hang9</item>
         <item>@drawable/hang10</item>
-    </integer-array>
+    </array>
 </resources>
