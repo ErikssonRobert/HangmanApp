@@ -49,7 +49,7 @@
 
     <EditText
         android:id="@+id/guessField"
-        android:inputType="text"
+        android:hint="@string/gameHint"
         android:textSize="32sp"
         android:layout_width="0dp"
         android:textAlignment="center"
@@ -60,11 +60,13 @@
 
     <Button
         android:id="@+id/guessBtn"
+        android:background="@drawable/button_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/guessBtn"
         android:onClick="guessBtnPressed"
         app:layout_constraintLeft_toRightOf="@+id/guessField"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guessField"/>
+        app:layout_constraintBottom_toBottomOf="@+id/guessField"
+        android:layout_marginBottom="5dp"/>
 </android.support.constraint.ConstraintLayout>

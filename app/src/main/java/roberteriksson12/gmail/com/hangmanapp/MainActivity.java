@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle(R.string.mainMenu);
+        setTitle(getString(R.string.mainMenu));
     }
 
     /**
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAboutActivity(){
-        Intent about = new Intent(this, AboutActivity.class);
+        Intent about = new Intent(this, InfoActivity.class);
         startActivity(about);
     }
 }

@@ -17,6 +17,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        setTitle(getString(R.string.resultTitle));
         Intent intent = getIntent();
         showResult(intent);
         ImageView hangmanImage = (ImageView) findViewById(R.id.hangedMan);

@@ -36,9 +36,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        setTitle("Hangman game");
+        setTitle(getString(R.string.gameTitle));
         initialize();
-        word.setText(mysteryWord, 0, mysteryWord.length);
     }
 
     private void initialize(){
@@ -57,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < mysteryWord.length; i++){
             mysteryWord[i] = '*';
         }
+        word.setText(getMysteryWord());
         changeImage();
     }
 
@@ -97,8 +97,15 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void guessBtnPressed(View view) {
-        boolean correct = false;
+
         String guess = guessField.getText().toString().toLowerCase();
+        handleGuess(guess);
+        afterEveryGuess();
+        showResult();
+    }
+
+    private void handleGuess(String guess){
+        boolean correct = false;
         if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess)) {
             for (int i = 0; i < mysteryWord.length; i++) {
                 if (guess.charAt(0) == randWord.charAt(i)) {
@@ -110,15 +117,18 @@ public class GameActivity extends AppCompatActivity {
                 toastHandler(1);
             } else {
                 toastHandler(2);
-                handlePastGuesses(guess);
-                guesses--;
-                changeImage();
+                afterWrongGuess(guess);
             }
         } else {
             chooseToast(guess);
         }
-        afterEveryGuess();
-        showResult();
+    }
+
+    private void afterWrongGuess(String s) {
+        handlePastGuesses(s);
+        guesses--;
+        changeImage();
+        triesLeft.setText(getString(R.string.tries) + " " + guesses);
     }
 
     private void handlePastGuesses(String s) {
@@ -129,8 +139,8 @@ public class GameActivity extends AppCompatActivity {
         pastGuessField.setText(pastGuesses);
     }
 
-    private boolean isOneLetter(String guess2) {
-        if (guess2.length() > 1)
+    private boolean isOneLetter(String s) {
+        if (s.length() > 1)
             return false;
         else
             return true;
@@ -175,11 +185,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void afterEveryGuess(){
-        triesLeft.setText(getString(R.string.tries) + " " + guesses);
-        word.setText(mysteryWord, 0, mysteryWord.length);
+        word.setText(getMysteryWord());
         guessField.setText("");
-        dismissKeyboard(this);
     }
+
+    private String getMysteryWord(){ return String.valueOf(mysteryWord); }
 
     /**
      * Changes the image of the hanged man
@@ -247,15 +257,5 @@ public class GameActivity extends AppCompatActivity {
                 toast6.show();
                 break;
         }
-    }
-
-    /**
-     * Hides the keyboard after the guess button is pressed
-     * @param activity
-     */
-    public void dismissKeyboard(Activity activity){
-        InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (null != activity.getCurrentFocus())
-            mgr.hideSoftInputFromWindow(guessField.getWindowToken(), 0);
     }
 }
