@@ -21,9 +21,10 @@ public class Hangman {
     private String pastGuesses;
     private Context context;
 
-    public Hangman() {
-    }
-
+    /**
+     * Constructor that gets context from GameActivity and
+     * @param context
+     */
     public Hangman(Context context) {
         this.context = context;
         guesses = 10;
@@ -37,6 +38,14 @@ public class Hangman {
         }
     }
 
+    /**
+     * Restores variables to their saved state.
+     * @param context
+     * @param mysteryWord
+     * @param randWord
+     * @param guesses
+     * @param pastGuesses
+     */
     public void restoreHangman(Context context, String mysteryWord, String randWord, int guesses, String pastGuesses){
         this.context = context;
         setMysteryWord(mysteryWord);
@@ -45,6 +54,14 @@ public class Hangman {
         this.pastGuesses = pastGuesses;
     }
 
+    /**
+     * Compares the letters and calls the correct methods if the guess was correct or not.
+     * @param guess
+     * @param pastGuessField
+     * @param hangmanImg
+     * @param images
+     * @param triesLeft
+     */
     public void handleGuess(String guess, TextView pastGuessField, ImageView hangmanImg, TypedArray images, TextView triesLeft) {
         boolean correct = false;
         if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess)) {
@@ -121,6 +138,11 @@ public class Hangman {
             toastHandler(6);
     }
 
+    /**
+     * Updates TextViews after every guess.
+     * @param word
+     * @param guessField
+     */
     public void afterEveryGuess(TextView word, EditText guessField) {
         word.setText(getMysteryWord());
         guessField.setText("");
