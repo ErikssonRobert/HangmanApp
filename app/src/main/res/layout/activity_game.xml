@@ -50,7 +50,7 @@
     <EditText
         android:id="@+id/guessField"
         android:hint="@string/gameHint"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:layout_width="0dp"
         android:textAlignment="center"
         android:layout_height="wrap_content"

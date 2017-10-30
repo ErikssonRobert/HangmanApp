@@ -2,7 +2,6 @@ package roberteriksson12.gmail.com.hangmanapp;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
