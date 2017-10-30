@@ -1,23 +1,17 @@
 package roberteriksson12.gmail.com.hangmanapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Random;
 
 import roberteriksson12.gmail.com.hangmanapp.hangman.HangmanAdapter;
 
@@ -35,7 +29,16 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         setTitle(getString(R.string.gameTitle));
+        hangmanAdapter = new HangmanAdapter(this);
         initialize();
+        if (savedInstanceState != null)
+            hangmanAdapter.restoreInformation(this, savedInstanceState, triesLeft, pastGuessField, word, hangmanImg, images);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        hangmanAdapter.saveInformation(outState);
     }
 
     /**
@@ -73,7 +76,6 @@ public class GameActivity extends AppCompatActivity {
         word = (TextView)findViewById(R.id.hiddenWord);
         triesLeft = (TextView)findViewById(R.id.triesLeft);
         pastGuessField = (TextView)findViewById(R.id.pastGuesses);
-        hangmanAdapter = new HangmanAdapter(this);
         word.setText(hangmanAdapter.getMysteryWord());
         hangmanAdapter.changeImage(hangmanImg, images);
     }
@@ -104,6 +106,4 @@ public class GameActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
 }

@@ -6,9 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
-
 import roberteriksson12.gmail.com.hangmanapp.R;
 
 /**
@@ -23,9 +21,10 @@ public class Hangman {
     private String pastGuesses;
     private Context context;
 
-    public Hangman(){}
+    public Hangman() {
+    }
 
-    public Hangman(Context context){
+    public Hangman(Context context) {
         this.context = context;
         guesses = 10;
         pastGuesses = "";
@@ -33,12 +32,20 @@ public class Hangman {
         createWords();
         randWord = words[random.nextInt(7)];
         mysteryWord = new char[randWord.length()];
-        for (int i = 0; i < mysteryWord.length; i++){
+        for (int i = 0; i < mysteryWord.length; i++) {
             mysteryWord[i] = '*';
         }
     }
 
-    public void handleGuess(String guess, TextView pastGuessField, ImageView hangmanImg, TypedArray images, TextView triesLeft){
+    public void restoreHangman(Context context, String mysteryWord, String randWord, int guesses, String pastGuesses){
+        this.context = context;
+        setMysteryWord(mysteryWord);
+        this.randWord = randWord;
+        this.guesses = guesses;
+        this.pastGuesses = pastGuesses;
+    }
+
+    public void handleGuess(String guess, TextView pastGuessField, ImageView hangmanImg, TypedArray images, TextView triesLeft) {
         boolean correct = false;
         if (isLetter(guess) && !isGuessed(guess) && isOneLetter(guess)) {
             for (int i = 0; i < mysteryWord.length; i++) {
@@ -58,18 +65,18 @@ public class Hangman {
         }
     }
 
-    public void createWords() {
+    private void createWords() {
         words = context.getResources().getStringArray(R.array.wordList);
     }
 
-    public void afterWrongGuess(String s, TextView pastGuessField, ImageView hangmanImg, TypedArray images, TextView triesLeft) {
+    private void afterWrongGuess(String s, TextView pastGuessField, ImageView hangmanImg, TypedArray images, TextView triesLeft) {
         handlePastGuesses(s, pastGuessField);
         guesses--;
         changeImage(hangmanImg, images);
         triesLeft.setText(context.getString(R.string.tries) + " " + guesses);
     }
 
-    public void handlePastGuesses(String s, TextView pastGuessField) {
+    private void handlePastGuesses(String s, TextView pastGuessField) {
         if (pastGuesses.length() > 0)
             pastGuesses += ", " + s;
         else
@@ -77,30 +84,22 @@ public class Hangman {
         pastGuessField.setText(pastGuesses);
     }
 
-    public boolean isOneLetter(String s) {
-        if (s.length() > 1)
-            return false;
-        else
-            return true;
+    private boolean isOneLetter(String s) {
+        return s.length() <= 1;
     }
 
-    public boolean isGuessed(String s) {
-        for (int i = 0; i < pastGuesses.length(); i++){
+    private boolean isGuessed(String s) {
+        for (int i = 0; i < pastGuesses.length(); i++) {
             if (pastGuesses.charAt(i) == s.charAt(0))
                 return true;
         }
         return false;
     }
 
-    /**
-     * checks if input is a letter or not
-     * @param s
-     * @return true if input is a letter
-     */
-    public boolean isLetter(String s){
+    private boolean isLetter(String s) {
         if (s.equals(""))
             return false;
-        else{
+        else {
             char c = s.charAt(0);
             if (Character.isDigit(c))
                 return false;
@@ -111,7 +110,7 @@ public class Hangman {
         }
     }
 
-    public void chooseToast(String s){
+    private void chooseToast(String s) {
         if (!isLetter(s))
             toastHandler(3);
         else if (isGuessed(s))
@@ -122,29 +121,33 @@ public class Hangman {
             toastHandler(6);
     }
 
-    public void afterEveryGuess(TextView word, EditText guessField){
+    public void afterEveryGuess(TextView word, EditText guessField) {
         word.setText(getMysteryWord());
         guessField.setText("");
     }
 
-    public String getMysteryWord(){ return String.valueOf(mysteryWord); }
+    public String getMysteryWord() {
+        return String.valueOf(mysteryWord);
+    }
 
     /**
      * Changes the image of the hanged man
+     *
      * @param hangmanImg
      * @param images
      */
-    public void changeImage(ImageView hangmanImg, TypedArray images){
+    public void changeImage(ImageView hangmanImg, TypedArray images) {
         hangmanImg.setImageDrawable(images.getDrawable(guesses));
     }
 
     /**
      * checks if all the letters have been guessed
+     *
      * @return true is all letters are guessed
      */
-    public boolean isGameWon(){
+    public boolean isGameWon() {
         int numLetters = mysteryWord.length;
-        for (int i = 0; i < mysteryWord.length; i++){
+        for (int i = 0; i < mysteryWord.length; i++) {
             if (mysteryWord[i] != '*')
                 numLetters--;
         }
@@ -154,8 +157,8 @@ public class Hangman {
             return false;
     }
 
-    public void toastHandler(int i){
-        switch (i){
+    private void toastHandler(int i) {
+        switch (i) {
             case 1:
                 Toast toast1 = Toast.makeText(context, context.getString(R.string.correct), Toast.LENGTH_SHORT);
                 toast1.show();
@@ -183,11 +186,22 @@ public class Hangman {
         }
     }
 
-    public String getRandWord(){
+    public String getRandWord() {
         return randWord;
     }
 
-    public int getGuesses(){
+    public int getGuesses() {
         return guesses;
+    }
+
+    public String getPastGuesses(){
+        return pastGuesses;
+    }
+
+    private void setMysteryWord(String mysteryWord){
+        this.mysteryWord = new char[mysteryWord.length()];
+        for (int i = 0; i < mysteryWord.length(); i++){
+            this.mysteryWord[i] = mysteryWord.charAt(i);
+        }
     }
 }
