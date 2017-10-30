@@ -64,6 +64,7 @@ public class GameActivity extends AppCompatActivity {
         if (id == R.id.infoTlbBtn){
             Intent info = new Intent(this, InfoActivity.class);
             startActivity(info);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

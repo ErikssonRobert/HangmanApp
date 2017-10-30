@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.playTlbBtn:
                 openGameActivity();
-                break;
+                return true;
             case R.id.infoTlbBtn:
                 openAboutActivity();
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
