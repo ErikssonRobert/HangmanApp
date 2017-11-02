@@ -73,6 +73,7 @@ public class Hangman {
             }
             if (correct) {
                 toastHandler(1);
+
             } else {
                 toastHandler(2);
                 afterWrongGuess(guess, pastGuessField, hangmanImg, images, triesLeft);
@@ -118,22 +119,17 @@ public class Hangman {
             return false;
         else {
             char c = s.charAt(0);
-            if (Character.isDigit(c))
-                return false;
-            else if (Character.isLetter(c))
-                return true;
-            else
-                return false;
+            return Character.isLetter(c);
         }
     }
 
     private void chooseToast(String s) {
         if (!isLetter(s))
             toastHandler(3);
-        else if (isGuessed(s))
-            toastHandler(4);
         else if (!isOneLetter(s))
             toastHandler(5);
+        else if (isGuessed(s))
+            toastHandler(4);
         else if (s.equals(""))
             toastHandler(6);
     }
@@ -168,15 +164,12 @@ public class Hangman {
      * @return true is all letters are guessed
      */
     public boolean isGameWon() {
-        int numLetters = mysteryWord.length;
-        for (int i = 0; i < mysteryWord.length; i++) {
-            if (mysteryWord[i] != '*')
-                numLetters--;
+        int numStars = mysteryWord.length;
+        for (char aMysteryWord : mysteryWord) {
+            if (aMysteryWord != '*')
+                numStars--;
         }
-        if (numLetters == 0)
-            return true;
-        else
-            return false;
+        return numStars == 0;
     }
 
     private void toastHandler(int i) {

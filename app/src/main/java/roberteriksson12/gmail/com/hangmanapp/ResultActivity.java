@@ -37,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         String revealWord = getString(R.string.reveal) + intent.getStringExtra("mystery").toUpperCase();
         mysteryWord.setText(revealWord);
         TextView triesLeft = (TextView)findViewById(R.id.triesLeft);
+        triesLeft.setText(getString(R.string.tries_left) + " " + intent.getIntExtra("tries", 0));
     }
 
     /**

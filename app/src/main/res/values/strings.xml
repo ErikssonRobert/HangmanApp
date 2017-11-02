@@ -19,4 +19,7 @@
     <string name="gameTitle">Hangman game</string>
     <string name="resultTitle">Result</string>
     <string name="gameHint">Type your guess</string>
+    <string name="youwon">You won!</string>
+    <string name="youlost">You lost!</string>
+    <string name="tries_left">Tries left:</string>
 </resources>

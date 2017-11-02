@@ -12,9 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import roberteriksson12.gmail.com.hangmanapp.hangman.HangmanAdapter;
+import roberteriksson12.gmail.com.hangmanapp.hangman.*;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity{
     private HangmanAdapter hangmanAdapter;
     private EditText guessField;
     private ImageView hangmanImg;
@@ -96,12 +96,12 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("mystery", hangmanAdapter.getRandWord());
         intent.putExtra("tries", hangmanAdapter.getGuesses());
         if (hangmanAdapter.isGameWon()){
-            intent.putExtra("result", "You won!");
+            intent.putExtra("result", getString(R.string.youwon));
             startActivity(intent);
             finish();
         }
         else if (hangmanAdapter.getGuesses() == 0){
-            intent.putExtra("result", "You lost");
+            intent.putExtra("result", getString(R.string.youlost));
             startActivity(intent);
             finish();
         }
